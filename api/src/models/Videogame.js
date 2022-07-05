@@ -21,8 +21,8 @@ module.exports = (sequelize) => {
       allowNull: false
     },
 
-    released: {
-      type: DataTypes.DATE,
+    released: {    // REVISAR DATATYPE!!!
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
@@ -34,6 +34,17 @@ module.exports = (sequelize) => {
     plataforms: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1280px-No_image_3x4.svg.png"
+    },
+    
+    screenShots: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
 
     createdInDb: {
