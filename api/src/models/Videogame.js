@@ -14,6 +14,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
 
     description: {
@@ -22,7 +23,7 @@ module.exports = (sequelize) => {
     },
 
     released: {    // REVISAR DATATYPE!!!
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
