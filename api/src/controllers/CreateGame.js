@@ -5,7 +5,7 @@ const createGame = (obj) => {
         released: obj.released,
         rating: obj.rating,
         plataforms: obj.plataforms,
-        image: obj.image,
+        img: obj.img,
         screenshots: obj.screenshots,
     }
     return newGame

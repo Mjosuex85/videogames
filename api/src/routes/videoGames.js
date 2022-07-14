@@ -11,10 +11,9 @@ router.get('/', async (req, res) => {
         const videoG = name ? await byName(name) : await allGames()
         res.status(200).send(videoG)
     }
-
     catch(error) {
         console.log(error)
-        res.send("el juego no existe")
+        res.send("erro")
     }
 });
 
@@ -33,12 +32,21 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const obj = req.body
     const { genres } = req.body
+    
+    function capFirtsLetter(str) {
+        let string = str
+        string[0] === " " ? string = string.slice(1) : null
+        return string.charAt(0).toUpperCase() + string.toLocaleLowerCase().slice(1);
+    }
+      
     try { 
         const newGame = await Videogame.create(createGame(obj))
-        
         let genre = await Genere.findAll({
             where: {name: genres}
         })
+        
+        newGame.name = capFirtsLetter(obj.name)
+        await newGame.save()
         await newGame.addGenere(genre)
         res.status(200).send(newGame)
     }

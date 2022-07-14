@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    rating: {
+    rating: {               // DEBE SER INTEGER
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -37,10 +37,9 @@ module.exports = (sequelize) => {
       allowNull: false
     },
 
-    image: {
+    img: {
       type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1280px-No_image_3x4.svg.png"
+      allowNull: false,
     },
     
     screenShots: {
