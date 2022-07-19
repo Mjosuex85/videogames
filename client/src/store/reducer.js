@@ -15,7 +15,7 @@ let initialState = {
     allvideoGames: [],
     allVideoGamesCopy: [],
     genres: [],
-    gameDetails: []
+    gameDetails: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -34,9 +34,10 @@ export default function reducer(state = initialState, action) {
             };
 
         case REQUEST_GAME_BY_NAME:
+            const only15games = action.payload.data.slice(0,[15])
             return {
                 ...state,
-                allvideoGames: action.payload.data
+                allvideoGames: only15games
             }
 
         case DATABASE: 
@@ -46,6 +47,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 allvideoGames: dataBase
             };
+
+        case REQUEST_GAME_BY_ID: 
+            return {
+                ...state,
+                gameDetails: action.payload.data
+            }
 
         case ALL:
             const all = state.allVideoGamesCopy
@@ -67,10 +74,10 @@ export default function reducer(state = initialState, action) {
 
         case GENRES: 
             const genresPayload = state.allVideoGamesCopy
-            let x = genresPayload.filter(e => e.genre).filter(x => x.genre.includes(action.payload))
+            let a = genresPayload.filter(x => x.genres.includes(action.payload))
             return {
                 ...state,
-                allvideoGames: [...x]
+                allvideoGames: [...a]
             };
 
         case ASC:

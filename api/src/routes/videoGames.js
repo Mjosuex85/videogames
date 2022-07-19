@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 const { allGames, byId, byName } = require('../controllers/VideoGames.js')
-const { Videogame, Genere } = require('../db.js')
+const { Videogame, Genre } = require('../db.js')
 const createGame = require('../controllers/CreateGame')
 
 
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
     catch(error) {
         console.log(error)
-        res.send("erro")
+        res.send("error")
     }
 });
 
@@ -32,22 +32,23 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const obj = req.body
     const { genres } = req.body
+    console.log(req.body)
     
     function capFirtsLetter(str) {
         let string = str
         string[0] === " " ? string = string.slice(1) : null
         return string.charAt(0).toUpperCase() + string.toLocaleLowerCase().slice(1);
     }
-      
+    
     try { 
         const newGame = await Videogame.create(createGame(obj))
-        let genre = await Genere.findAll({
+        let xgenre = await Genre.findAll({
             where: {name: genres}
         })
         
         newGame.name = capFirtsLetter(obj.name)
         await newGame.save()
-        await newGame.addGenere(genre)
+        await newGame.addGenre(xgenre)
         res.status(200).send(newGame)
     }
     catch(error) {

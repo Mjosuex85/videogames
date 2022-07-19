@@ -9,6 +9,7 @@ export const GENRES = "GENRES"
 export const ASC = "ASC"
 export const DESC = 'DESC'
 export const RESET = "RESET"
+export const REQUEST_GAME_BY_ID = "REQUEST_GAME_BY_ID"
 
 export function allGames() {    //   API QUERY
     return async function(dispatch) {
@@ -29,7 +30,7 @@ export function allGames() {    //   API QUERY
 export function GetGenres () {  // API QUERY
     return function(dispatch) {
         try {
-            return axios.get("http://localhost:3856/genres")
+            return axios.get("http://localhost:3856/genre")
             .then((genres) => {
                 return dispatch({
                     type: REQUEST_GENRES,
@@ -55,6 +56,23 @@ export function byName(name) {
             })
         }
         catch(error) {}
+    }
+}
+
+export function byId(id) {
+    return function(dispatch) {
+        try {
+            return axios.get(`http://localhost:3856/videogames/${id}`)
+            .then(details => {
+                return dispatch({
+                    type: REQUEST_GAME_BY_ID,
+                    payload: details
+                })
+            })
+        }
+        catch(error) {
+            console.log(error)
+        }
     }
 }
 

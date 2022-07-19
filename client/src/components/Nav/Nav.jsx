@@ -5,46 +5,54 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { GetGenres, byDataBase, byRating, all, byGenres, asc, desc, resetFilter} from '../../store/actions'
 import { Link } from 'react-router-dom'
+import style from './nav.module.css'
+import logo from './sources/logo.png'
+
 
 export default function Nav() {
-    let allGenres = useSelector((state) => state.genres)
-    let dispatch = useDispatch()
-    useEffect(() => {
-      dispatch(GetGenres())
-    }, [dispatch])
-
-    function genres(e) {
-        e.preventDefault()
-        dispatch(byGenres(e.target.value))
-    };
-
-    function orderABC(e) {
-        e.preventDefault()
+  let allGenres = useSelector((state) => state.genres)
+  let dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(GetGenres())
+  }, [dispatch])
+  
+  function genres(e) {
+    e.preventDefault()
+    dispatch(byGenres(e.target.value))
+  };
+  
+  function orderABC(e) {
+    e.preventDefault()
         e.target.value === 'asc'
         ? dispatch(asc())
         : dispatch(desc())
-    };
-
-    function rating(e) {
+      };
+      
+      function rating(e) {
         e.preventDefault()
         dispatch(byRating(e.target.value))
-    };
-
-    function dataBase(e) {
+      };
+      
+      function dataBase(e) {
         e.preventDefault()
         e.target.value === "dataBase" 
         ? dispatch(byDataBase())
         : dispatch(all())
         
-    };
-
-    function reset(e) {
+      };
+      
+      function reset(e) {
         e.preventDefault()
         dispatch(resetFilter())
-    }
+      }
+      
+      return (
+        <nav className={style.body}>
+         
+         <div>
+            <Link to={'/home'}><img className={style.img}src={logo} alt="" width="200" height="100"/></Link>
+        </div>
 
-  return (
-    <div>
         <Link to={"/create"}> <button> Create Video Game </button> </Link>
         <button onClick={(e) => reset(e)}> Reset Filters </button>
         <select onChange={(e) => orderABC(e)}>
@@ -75,6 +83,6 @@ export default function Nav() {
         <div>
             <SearchBar/>
         </div>
-    </div>
+    </nav>
   )
 }

@@ -1,0 +1,21 @@
+.search {
+    justify-content: center;
+}
+
+.search__input {
+  background: transparent;
+  border-radius: 5px;
+  box-shadow: none;
+  width: 10%;
+  color: gold;
+}
+
+.btn {
+    background-color: transparent;
+    color: gold;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}

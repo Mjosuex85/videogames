@@ -1,21 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import style from './card.module.css'
 
 
-export default function PokemonCard({name, img, genre, id, rating}) {
+export default function GameCard({name, img, genres, id, rating}) {
   
   return (
-    <div>
-        <h4>{name}</h4>
-        <Link to={`/videogames/${id}`}> 
-          <img src={img} alt="NOT FOUND" width="490" height="290"/> 
+    <div className={style.container}>
+        <h4 className={style.title}> {name}</h4>
+        <Link to={`/details/${id}`}> 
+          <img className={style.img} src={img} 
+              alt="Not Found" 
+              width="290" 
+              height="190"/> 
         </Link>
 
         <div>
-          {genre?.map(genre => <li>{genre}</li>)}
-        </div>
+          {genres?.map(genre => {
 
-        <h4>{rating}</h4>
+            return (genre.name 
+            ? <li>{genre.name}</li>
+            : <li>{genre}</li>)
+          }
+          )}
+        </div>
+        
+        <div >
+        <h4 className={style.rating}>{rating}</h4>
+        </div>
     </div>
   )
 }

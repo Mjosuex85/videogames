@@ -2,7 +2,7 @@ import React from 'react'
 import { byName } from '../../store/actions.js'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import img1 from './img2.jpg'
+import s from './search.module.css'
 
 export default function SearchBar() {
   const [search, setSearch] = useState("")
@@ -16,14 +16,18 @@ export default function SearchBar() {
   function onChange(e) {
     e.preventDefault()
     setSearch(e.target.value)
-    console.log(e.target.value)
   }
   
   return (
     <div>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <input type="text" onChange={onChange} placeholder="Search a Game..." value={search}  />
-        <input disabled={!search} type="submit" value="Search" />
+      <form className={s.search} onSubmit={(e) => onSubmit(e)}>
+        <input type="text" 
+              onChange={onChange} 
+              placeholder="Search a Game..." 
+              className={s.search__input}
+              /* value={search} *//>
+              
+        <button className={s.btn} disabled={!search} type="submit" value="Search">Search</button>
       </form>
     </div>
   )

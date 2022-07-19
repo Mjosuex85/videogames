@@ -7,7 +7,6 @@ export default function Home() {
 
   return (
     <>
-    <h1>  VIDEO GAMES </h1>
     <div> <Nav/> </div>
     <div> <GameCards/> </div>
     </>

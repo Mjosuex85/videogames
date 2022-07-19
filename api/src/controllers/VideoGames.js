@@ -1,5 +1,5 @@
 const axios = require('axios')                        // en los controllers solo vamos a usar AXIOS para las peticiones a la API
-const { Videogame, Genere } = require('../db.js')    // y las bases de datos para poder manipularlas
+const { Videogame, Genre } = require('../db.js')    // y las bases de datos para poder manipularlas
 const { Op } = require('sequelize')
 const { API_KEY } = process.env
 
@@ -17,9 +17,9 @@ const gamesUrl = async (url) => {   // ASYNC AWAIT
                         rating: v.rating,
                         plataforms: v.platforms?.map(p => p.platform.name),
                         img: v.background_image,
-                        genre: v.genres.map(g => g.name),
+                        genres: v.genres.map(g => g.name),
                         screenShots: v.short_screenshots.map(s => s.image)
-                }
+                }   
             }) 
         })
 }
@@ -49,26 +49,20 @@ const byName = async (name) => {
             }
         },
         include: {  
-            model: Genere, through: { attributes: [] }
+            model: Genre, through: { attributes: [] }
         } 
     })
     const gamesSearched = gamesApi.concat(gamesBd)
     const games = gamesSearched.length ? gamesSearched : {msg: "theres no game"}
-    return games
-    
+        return games
 }   
 
 
 const allGames = async (name) => { // ASYNC AWAIT
-
-    /* const condition = name
-     ? {where: {name: {[Op.iLike]: `%${name}%`}}}  
-     : {} */
-
     const gamesApi = await apiGames(name)
     const gamesDB = await Videogame.findAll({
         include: {  
-            model: Genere, through: { attributes: [] }
+            model: Genre, through: { attributes: [] }
         }
     })
 
@@ -76,12 +70,33 @@ const allGames = async (name) => { // ASYNC AWAIT
         return allVideoGames
 };
 
-
 const byId = async (id) => {  // ASYNC AWAIT
+        if (id.includes("-")) {
+        const game = await Videogame.findOne({
+                where: {
+                    id: id
+                },
+                include: {  
+                    model: Genre, through: { attributes: [] }
+                } 
+            });
+        
+            return {
+                name: game.name,
+                id: game.id,
+                released: game.released,
+                rating: game.rating,
+                img: game.img,
+                description: game.description,
+                plataforms: game.plataforms,
+                genres: game.genres
+            };
+        }
+    
+    else {
     return axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
     .then(resposne => {
         const data = resposne.data
-        console.log(data)
         return {
             name: data.name,
             id: data.id,
@@ -89,10 +104,12 @@ const byId = async (id) => {  // ASYNC AWAIT
             rating: data.rating,
             plataforms: data.platforms?.map(p => p.platform.name),
             img: data.background_image,
-            genre: data.genres.map(g => g.name),
+            genres: data.genres.map(g => g.name),
+            description: data.description
         }
-    })
-}
+    }) 
+    };
+};
 
 module.exports = {
     allGames,

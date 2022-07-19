@@ -1,0 +1,21 @@
+.container {
+    padding: 4px;
+}
+
+.img {
+    border-radius: 5px;
+}
+
+.img:hover {
+    transform: scale(1.1);
+}
+
+.title {
+    font-size:  medium;
+    text-align: left;
+    width: 100%;
+}
+
+.rating {
+    color:#3FB95E;
+}
