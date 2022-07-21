@@ -47,42 +47,46 @@ export default function Nav() {
       }
       
       return (
-        <nav className={style.body}>
+        <div className={style.body}>
          
-         <div>
-            <Link to={'/home'}><img className={style.img}src={logo} alt="" width="200" height="100"/></Link>
+        <div>
+            <Link to={'/home'}>< img className={style.img}src={logo} alt="" width="200" height="100"/> </Link>
         </div>
 
-        <Link to={"/create"}> <button> Create Video Game </button> </Link>
+        <Link to={"/create"}> <button className={style.create}> Create Video Game </button> </Link>
+        
+      
+      <div className={style.filters}>
         <button onClick={(e) => reset(e)}> Reset Filters </button>
-        <select onChange={(e) => orderABC(e)}>
-          <option enable>Order by...</option>
+        <select className={style.filterInside} onChange={(e) => orderABC(e)}>
+          <option enable> Order by...</option>
           <option value="asc">A - Z </option>
           <option value="desc">Z - A </option>
         </select>
 
-        <select onChange={(e) => rating(e)}>
+        <select className={style.filterInside} onChange={(e) => rating(e)}>
           <option enable>Order by Rating...</option>
           <option value='highest'> Highest to lowest</option>
           <option value='lowest'> Lowest to highest</option>
         </select>
 
-        <select onChange={(e) => dataBase(e)}>
+        <select className={style.filterInside} onChange={(e) => dataBase(e)}>
           <option value="all">All</option>
           <option value="dataBase">Created by you</option>
         </select>
 
-        <select enable="true" onChange={(e) => genres(e)}>
+        <select className={style.filterInside} enable="true" onChange={(e) => genres(e)}>
           <option enable>Order By Genres..</option>
           {allGenres.map((g) => {
             return <option value={g.name}>{g.name}</option>
           })}
-
         </select>
 
-        <div>
+      </div>
+
+        <div className={style.searchBar}>
             <SearchBar/>
         </div>
-    </nav>
+    </div>
   )
 }

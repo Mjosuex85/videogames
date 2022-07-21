@@ -1,0 +1,15 @@
+.container {
+    font-family: monospace;
+    color: goldenrod;
+    margin-left: 3%;
+    justify-content: space-evenly;
+    display: flex;
+    
+}   
+
+.name_details {
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 72%;
+}
+

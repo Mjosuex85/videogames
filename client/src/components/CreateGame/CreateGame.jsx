@@ -5,25 +5,9 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ratings, plataforms } from './plataforms'
 import { GetGenres } from '../../store/actions'
+import { validate } from './validations'
+import style from './create.module.css'
 
-export const validate = (input) => {
-  let error = {}
-
-  console.log(error.name)
-  if (!input.name) {
-      error.name = "Name is required"
-  }
-
-  else if (!input.rating) {
-      error.rating = "Please you need to rate this game"
-  }
-
-  /* if (input.plataforms.length === 0) {
-      error.plataforms = "you need at least one plataforms"
-  } */
-
-  return error
-}
 
 export default function CreateGame() {
   const genresState = useSelector((state) => state.genres)
@@ -55,7 +39,7 @@ export default function CreateGame() {
           ...game,
           [e.target.name]: e.target.value
         }))
-        console.log(error)
+        
         
         if (e.target.name === "img") {
           setImg({...img, img: e.target.value})
@@ -70,6 +54,19 @@ export default function CreateGame() {
         ])
       }
 
+      function removePlataforms(e) {
+        e.preventDefault()
+        let x = e.target.innerText.replace(" ❌", "")
+        setPlataformsFrom([...plataformsFrom].filter(e => e !== x))
+      }
+
+      function removeGenre(e) {
+        e.preventDefault()
+        console.log(e.target)
+        let x = e.target.innerText.replace(" ❌", "")
+        setGenre([...genreForm].filter(e => e !== x))
+      }
+
       function onInputChange3(e) {
         e.preventDefault()
         setPlataformsFrom([
@@ -78,18 +75,21 @@ export default function CreateGame() {
         ])
       }
       
-    const handleSubmit = (e) => {
+    const handleSubmit =  async (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:3856/videogames/`, game)
-        .then((res) => {
-          alert(res.data.name.toUpperCase() + " the Game was succesfully added")
-        })
+        let x = await axios.post(`http://localhost:3856/videogames/`, game)
+        /* .then((res) => {
+          
+        }) */
+        alert(x.data.name.toUpperCase() + " the Game was succesfully added")
+        window.history.back();
+
     }
 
 ////////////////////////////////////////////////////////////////// FORMULARIO ////////////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <div>
+    <div className={style.container}>
         <Link to='/home'><button>Go Back</button></Link>
                 <h1> Create your VideoGame</h1>
         <form onSubmit={handleSubmit}>
@@ -97,10 +97,11 @@ export default function CreateGame() {
           <div>
               <label htmlFor=''>Name </label>
                 <input onChange={handleOnChange} 
+                  placeholder="Name..."
                   name='name' 
                   type="text" 
                   value={game.name} /> 
-                {error.name ? <p>{error.name}</p> : ""} <br></br>
+                {error.name ? <p>{error.name} ❌</p> : ""} <br></br>
           </div>    
             
           <div>
@@ -114,18 +115,23 @@ export default function CreateGame() {
           <div>
                 <label htmlFor=''>Plataforms </label>
                     <select  onChange={onInputChange3} name="plataforms" value={plataformsFrom}> 
-                         { plataforms?.map(p => {
+                         { plataforms.map(p => {
                             return <option>{p}</option>         
                         })}
                     </select>  <br></br> 
-                    <p>{error.plataforms ? error.plataforms : ""}</p>
+                   {error.plataforms ?  <p>{error.plataforms} ❌</p> : ""}
           </div> 
 
-          <div>
-              {plataformsFrom?.map(g => {
-                return <ul> <li>{g}</li></ul>
+          <div >
+              {plataformsFrom.slice(0, 3)?.map(g => {
+                return <div > 
+                            <ul  className={style.xbtn}> 
+                              <div onClick={(e) => removePlataforms(e)}> {`${g} ❌`}</div>
+                            </ul>
+                       </div>
               })}
           </div>
+
 
           <div>    
             <label htmlFor=''> Genres </label>
@@ -137,8 +143,12 @@ export default function CreateGame() {
                 </select> <br></br>
           </div>
                <div>
-                    {genreForm?.map(g => {
-                      return <ul> <li>{g}</li></ul>
+                    {genreForm.slice(0, 5).map(g => {
+                      return  <div className={style.xbtn}>
+                                  <ul> 
+                                      <li onClick={(e) => removeGenre(e)}> {`${g} ❌`}</li>
+                                  </ul>
+                              </div>
                     })}
                 </div>
           <div>
@@ -148,13 +158,18 @@ export default function CreateGame() {
                               return <option>{r}</option>
                           }) }
                     </select> 
+
+                  <div className={style.ratingBox}>
+                     {game.rating ? <p> Your Rating <p className={style.rating}> {game.rating} </p></p> : ""} 
                     <p>{error.rating ? error.rating : ""}</p> <br></br>
+                  </div>
           </div>
 
           <div>
                <label htmlFor=''>Image </label>
                   <input 
                     onChange={handleOnChange} 
+                    placeholder="Url Here..."
                     name='img' 
                     type="text" 
                     value={game.img}/> <br></br> 
@@ -176,6 +191,7 @@ export default function CreateGame() {
                 <textarea
                   onChange={handleOnChange} 
                   name='description'
+                  placeholder='Write Here...'
                   type="text" 
                   rows="3" 
                   cols="40" 
@@ -186,7 +202,7 @@ export default function CreateGame() {
 
         </form>
             
-            <button onClick={handleSubmit}  disabled={Object.keys(error).length > 1}> Create </button>
+            <button onClick={(e) => handleSubmit(e)}  disabled={Object.keys(error).length > 1}> Create </button>
           
     </div>
   )

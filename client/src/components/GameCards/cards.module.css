@@ -4,10 +4,11 @@
     flex-direction: center;
     justify-content: center;
     width: 100%;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
 .intro {
+    color: goldenrod;
     font-size: 20px;
     display: block; 
     font-family: monospace;
@@ -27,3 +28,10 @@
   @keyframes blink {
       50% { border-color: transparent;}
   }
+
+  .btnNextPrev{
+    font-family: monospace;
+    border: none;
+    color: goldenrod;
+    background-color: transparent;
+}

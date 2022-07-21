@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './card.module.css'
+import Pagination from '../Pagination/Pagination'
 
 
 export default function GameCard({name, img, genres, id, rating}) {
@@ -15,19 +16,26 @@ export default function GameCard({name, img, genres, id, rating}) {
               height="190"/> 
         </Link>
 
-        <div>
-          {genres?.map(genre => {
 
-            return (genre.name 
-            ? <li>{genre.name}</li>
-            : <li>{genre}</li>)
-          }
-          )}
+      <div className={style.info}>
+        <div>
+              {genres?.map(genre => {
+               return (genre.name 
+                  ? <li>{genre.name}</li>
+                   : <li>{genre}</li>)
+              }
+             )}
         </div>
         
-        <div >
-        <h4 className={style.rating}>{rating}</h4>
+        <div className={style.rating}>
+              <h4 >{rating}</h4>
         </div>
+
+      </div>
+
+      
     </div>
+
+
   )
 }

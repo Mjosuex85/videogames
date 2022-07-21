@@ -3,19 +3,28 @@
 }
 
 .search__input {
-  background: transparent;
+  margin-left: 50px;
   border-radius: 5px;
   box-shadow: none;
-  width: 10%;
-  color: gold;
+  width: 40%;
+  color: rgb(0, 0, 0);
 }
 
 .btn {
+    margin-bottom: 40px;
+    margin-left: 10px;
     background-color: transparent;
-    color: gold;
+    color: rgb(0, 0, 0);
     border-radius: 5px;
+    border:  solid 1px
+    
 }
 
 .btn:hover {
     cursor: pointer;
+}
+
+.space {
+    display: flex;
+    flex-wrap: wrap;
 }

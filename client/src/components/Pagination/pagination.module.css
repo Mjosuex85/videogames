@@ -1,0 +1,11 @@
+.btnNextPrev{
+    font-family: monospace;
+    border: solid 1px goldenrod;
+    color: goldenrod;
+    background-color: transparent;
+}
+
+.btnNextPrev:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+.container {
+    color: goldenrod;
+    text-align: center;
+    font-family: monospace;
+    font-size: 15px;
+    justify-content: left;
+}
+
+
+.xbtn {
+   list-style: none;
+}
+
+.xbtn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.listPlata {
+    list-style:none
+}
+
+.rating{
+    color:#3FB95E ;
+}
+
+.ratingBox {
+    /* display: flex; */
+}

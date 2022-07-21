@@ -19,7 +19,7 @@ export default function SearchBar() {
   }
   
   return (
-    <div>
+    <div className={s.space}>
       <form className={s.search} onSubmit={(e) => onSubmit(e)}>
         <input type="text" 
               onChange={onChange} 

@@ -1,16 +1,46 @@
 .body {
+    
     display: flex;
-    align-items: center;
-
+    text-align: center;
+    justify-content: end;
     background-color: goldenrod;
     height: 100px;
     width: 100%;
 }
 
-
-
 .img {
     position: absolute;
     top: 0.1px;
+    left: 1px;
+}
+
+.create {
+    margin-top: 60px;
+    margin-right: 340px;
+    border:groove
+}
+
+.create:hover {
+    transform: scale(1.1);
+}
+
+.searchBar {
+    justify-content: end;
+}
+
+.filters {
+    
+    padding-top: 20px;
+    justify-content: end;
+}
+
+.filterInside {
+    border:groove
+}
+
+.filterInside:hover {
+    transform: scale(1.1);
     
 }
+
+

@@ -1,5 +1,7 @@
 .container {
     padding: 4px;
+    font-family: monospace;
+    color: goldenrod;
 }
 
 .img {
@@ -7,15 +9,27 @@
 }
 
 .img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1)
 }
 
 .title {
     font-size:  medium;
     text-align: left;
     width: 100%;
+    margin-left: 1%;
+    
 }
 
 .rating {
     color:#3FB95E;
+    margin-left: 65%;
+    position: inherit;  
+    left: 1px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    text-decoration: none;
 }
