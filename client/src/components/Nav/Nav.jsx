@@ -75,8 +75,8 @@ export default function Nav() {
           <option value="dataBase">Created by you</option>
         </select>
 
-        <select className={style.filterInside} enable="true" onChange={(e) => genres(e)}>
-          <option enable>Order By Genres..</option>
+        <select className={style.filterInside}  onChange={(e) => genres(e)}>
+          <option multiple={true} enable>Order By Genres..</option>
           {allGenres.map((g) => {
             return <option value={g.name}>{g.name}</option>
           })}

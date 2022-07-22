@@ -1,7 +1,7 @@
 const createGame = (obj) => {
     const newGame = {
         name: obj.name,
-        description: obj.description,
+        description: obj.description.toLowerCase(),
         released: obj.released,
         rating: obj.rating,
         plataforms: obj.plataforms,

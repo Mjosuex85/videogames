@@ -5,8 +5,7 @@ const genres = require('../controllers/Genre.js')
 
 
 router.get('/genre', async (req, res) => {
-    const allGenres = await genres()  
-    console.log(Genre) 
+    const allGenres = await genres() 
      
     try {
         await allGenres.map(genre => Genre.findOrCreate({

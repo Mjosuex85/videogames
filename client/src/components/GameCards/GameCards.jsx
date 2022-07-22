@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import  { allGames } from '../../store/actions.js'
 import GameCard from '../GameCard/GameCard.jsx'
 import style from './cards.module.css'
+import Loading from '../Loading/Loading.jsx'
 
 export default function GameCards() {
     let games = useSelector((state) => state.allvideoGames)
@@ -12,6 +13,7 @@ export default function GameCards() {
         dispatch(allGames())
     }, [dispatch])
 
+    // variable que se edita para elegir la cantidad de juegos a mostrar por
     const gamesToShow = 15
 
     const [ start, setStart ] = useState(0)
@@ -24,31 +26,46 @@ export default function GameCards() {
           console.log("Finish", finish)
     }
         
-
     function goToPreviousPage() {
         setStart(start - gamesToShow)
         setFinish(finish - gamesToShow)
     }
-       
 
 
+    if (games.length > 0) {
+        return (
+    <>
+        <div className={style.container}>
+            {  games.slice(start, finish).map(g => {
+                return <GameCard 
+                name={g.name} 
+                img={g.img} 
+                genres={g.genres}
+                id={g.id}
+                rating={g.rating}
+                />
+            })}
 
-  return (
-    <div className={style.container}>
-        { games.length > 0 ? 
-                games.slice(start, finish).map(g => {
-            return <GameCard 
-            name={g.name} 
-            img={g.img} 
-            genres={g.genres}
-            id={g.id}
-            rating={g.rating}
-            />
-        })
-        : <h6 className={style.intro}> Loading... </h6>}   
+          <div> 
+                <button 
+                      disabled={ start === 0 ? true : false } 
+                      onClick={goToPreviousPage}> Prev 
+                </button> 
+              
+                <button 
+                      disabled={ finish > games.length || games.length < 16 ? true : false} 
+                      onClick={goToNextPage}> Next
+                </button>
+          </div>
+        </div> 
+        </>
+  )}
 
-      <div> <button disabled={ start === 0 ? true : false } onClick={goToPreviousPage}> Prev </button> 
-            <button disabled={ finish > games.length || games.length < 16 ? true : false} onClick={goToNextPage}>Next</button></div>
-    </div> 
-  ) 
-}
+
+          else {
+              return (
+                <>
+                      <h1 className={style.loading}> <Loading/></h1>
+                </>
+              )
+}}

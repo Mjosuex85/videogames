@@ -1,4 +1,5 @@
 .container {
+    margin-top: 20px;
     font-family: monospace;
     color: goldenrod;
     margin-left: 3%;
@@ -8,8 +9,37 @@
 }   
 
 .name_details {
+    margin-top: 30px;
     display: flex;
     justify-content: space-evenly;
     margin-right: 72%;
 }
+
+.info {
+    margin-top: 115px;
+    margin-left: 30px;
+    margin-right: 100px;
+    justify-items: flex-end
+}
+
+
+.btn {
+    margin-left: 100%;
+    border: 1px solid goldenrod;
+    background-color: transparent;
+    color: goldenrod
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.rating {
+    color: #3FB95E;
+}
+
+
+
+
 

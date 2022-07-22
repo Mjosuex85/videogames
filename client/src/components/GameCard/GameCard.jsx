@@ -7,6 +7,7 @@ import Pagination from '../Pagination/Pagination'
 export default function GameCard({name, img, genres, id, rating}) {
   
   return (
+    <>
     <div className={style.container}>
         <h4 className={style.title}> {name}</h4>
         <Link to={`/details/${id}`}> 
@@ -35,7 +36,7 @@ export default function GameCard({name, img, genres, id, rating}) {
 
       
     </div>
+</>
 
-
-  )
+)
 }

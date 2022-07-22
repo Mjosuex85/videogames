@@ -6,18 +6,21 @@ import style from './details.module.css'
 
 export default function Details({ id }) {
   const gameDetails = useSelector((state) => state.gameDetails)
-  console.log(" este es el id de details", id)
   let dispatch = useDispatch()
   useEffect(() => {
     dispatch(byId(id))
   }, [dispatch, id])
 
+  function back() {
+    window.history.back() 
+  }
+
   return (
     <div className={style.container}>
       
-      {/* <Link to={'/home'}> <button>Home</button></Link> */}
+      <Link to={'/home'}> <button onClick={back} className={style.btn}> Home </button> </Link>
       
-      <div className={style.info}>
+      <div >
         
         <div className={style.name_details}>
           <h1>{gameDetails.name}</h1>
@@ -27,25 +30,27 @@ export default function Details({ id }) {
           
           <p> ID: {gameDetails.id}</p>
           <div>
-            <p>{gameDetails.rating}</p>
+            <p className={style.rating}> Rating:{gameDetails.rating}</p>
             <p>Released {gameDetails.released}</p>
         </div>
       </div>
 
-      <div className={style.detail}>
+      <div className={style.info}>
           <p>{gameDetails.description/* .replace("<p>", "").replace("</p>", "") */}</p>
-          <div>
-          {gameDetails.plataforms?.map(p => {
-            return <ul> <li>{p}</li></ul>
-          })}
-        </div>
+          
+          <div className={style.plataforms}>
+                {gameDetails.plataforms?.map(p => {
+            
+                  return <ul> <li>{p}</li></ul>
+                })}
+          </div>
 
-          <div>
+          <div > 
           {gameDetails.genres?.map(p => {
             return (
               p.name
-                ? <ul> <li>{p.name}</li></ul>
-                : <ul> <li>{p}</li></ul>
+                ? <ul> <li className={style.genres}>{p.name}</li></ul>
+                : <ul> <li className={style.genres}>{p}</li></ul>
             )
           })}
           </div>
