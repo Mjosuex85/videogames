@@ -15,8 +15,6 @@ router.get('/', async (req, res) => {
         console.log(error)
         res.send("error")
     }
-
-
 });
 
 router.get('/:id', async (req, res) => {
@@ -35,20 +33,12 @@ router.post('/', async (req, res) => {
     const obj = req.body
     const { genres } = req.body
     
-    /* function capFirtsLetter(str) {
-        let string = str
-        string[0] === " " ? string = string.slice(1) : null
-        return string.charAt(0).toUpperCase() + string.toLocaleLowerCase().slice(1);
-    } */
-    
     try { 
         const newGame = await Videogame.create(createGame(obj))
         let xgenre = await Genre.findAll({
             where: {name: genres}
         })
-        
-        /* newGame.name = capFirtsLetter(obj.name)
-        await newGame.save() */
+    
         await newGame.addGenre(xgenre)
         res.status(200).send(newGame)
     }

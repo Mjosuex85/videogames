@@ -9,9 +9,11 @@ import Loading from '../Loading/Loading.jsx'
 export default function GameCards() {
     let games = useSelector((state) => state.allvideoGames)
     let dispatch = useDispatch()
+    
     useEffect(() => {
         dispatch(allGames())
-    }, [dispatch])
+    }, [])  
+
 
     // variable que se edita para elegir la cantidad de juegos a mostrar por
     const gamesToShow = 15

@@ -98,44 +98,43 @@ export default function CreateGame() {
           [e.target.name]: e.target.value
         }))
         
-        
         if (e.target.name === "img") {
           setImg({...img, img: e.target.value})
         }
     }
       
-      function onInputChange2(e) {
+    
+    function removePlataforms(e) {
+      e.preventDefault()
+      let x = e.target.innerText.replace(" ❌", "")
+      setPlataformsFrom([...plataformsFrom].filter(e => e !== x))
+    }
+    
+    function removeGenre(e) {
+      e.preventDefault()
+      console.log(e.target)
+      let x = e.target.innerText.replace(" ❌", "")
+      setGenre([...genreForm].filter(e => e !== x))
+    }
+    
+    function onInputChange2(e) {
+      e.preventDefault()
+      if (!genreForm.includes(e.target.value))
+      setGenre([
+        ...genreForm,
+        e.target.value
+      ])
+    }
+    
+    function onInputChange3(e) {
         e.preventDefault()
-        setGenre([
-          ...genreForm,
-          e.target.value
-        ])
-      }
-
-      function removePlataforms(e) {
-        e.preventDefault()
-        let x = e.target.innerText.replace(" ❌", "")
-        setPlataformsFrom([...plataformsFrom].filter(e => e !== x))
-      }
-
-      function removeGenre(e) {
-        e.preventDefault()
-        console.log(e.target)
-        let x = e.target.innerText.replace(" ❌", "")
-        setGenre([...genreForm].filter(e => e !== x))
-      }
-
-      function onInputChange3(e) {
-        e.preventDefault()
-
         if (!plataformsFrom.includes(e.target.value)) {
           setPlataformsFrom([
             ...plataformsFrom,
             e.target.value
           ])
         }
-        
-      }
+    }
       
     const handleSubmit =  async (e) => {
         e.preventDefault()
@@ -143,7 +142,7 @@ export default function CreateGame() {
         /* .then((res) => {
           
         }) */
-        alert(x.data.name.toUpperCase() + " the Game was succesfully added")
+        alert(x.data.name.toUpperCase() + " was succesfully added")
         window.history.back();
 
     }
@@ -198,7 +197,7 @@ export default function CreateGame() {
 
           <div>    
             <label htmlFor='Genres'> Genres </label>
-                <select onChange={(e) => onInputChange2(e)} name="plataforms" value={genreForm || []} > 
+                <select onChange={(e) => onInputChange2(e)} name="plataforms" value={genreForm} > 
                    {genresState?.map((t, i) => {
                       return <option key={i} value={t.name}>{t.name}</option>
                   })}
