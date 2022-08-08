@@ -20,7 +20,7 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case REQUEST_ALLGAMES: 
+        case REQUEST_ALLGAMES:
             return {
                 ...state,
                 allvideoGames: action.payload.data,
