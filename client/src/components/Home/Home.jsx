@@ -10,7 +10,7 @@ export default function Home() {
     <>
     <div> <Nav/> </div>
     <div> <GameCards/> </div>
-    <div>  <ChatBotRender/> </div>
+    {/* <div>  <ChatBotRender/> </div> */}
     </>
   )
 }
