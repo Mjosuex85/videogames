@@ -14,7 +14,7 @@ function App() {
       <Route exact path='/details/:id' render={({match}) => <Details id={match.params.id} />}/>
       <Route exact path='/create' component={CreateGame}/>
       </BrowserRouter>
-    </div>
+    </div>  
   );
 }
 

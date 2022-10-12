@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ratings, plataforms } from './plataforms'
 import { GetGenres, allGames} from '../../store/actions'
 import style from './create.module.css'
-
+import Swal from 'sweetalert2'
 
 export default function CreateGame() {
   const genresState = useSelector((state) => state.genres)
@@ -28,12 +28,115 @@ export default function CreateGame() {
   const [ img , setImg ] = useState({img: "https://admin.esment.org/uploads/flat_pages/no.gif"})
 
 
- 
+ function bann_unBann(e) {
+  e.preventDefault()
+  Swal.fire({
+    title: 'What do you want to do with this user?',
+    showDenyButton: true,
+    showCancelButton: true, 
+    denyButtonText: `Bann or Unbann user`,
+    confirmButtonText: 'Make a user Admin',
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed /* make admin */) {
+  
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure to make admin this user?',
+        text: "You can revert this option later!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, make it admin!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed /* BANN */) {
+          
+          swalWithBootstrapButtons.fire(
+            'The user is now a admin',
+            'the user now has this roles: - dkkkdd - jdkddjfk!.',
+            'success'
+          )
+         /*  dispatch(bann_unBann({   // DISPACHAR LA ACIÓN PARA BANEAR O DESBANEAR
+            typeOfEdit,
+            id,
+          })) */
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'The user is not an admin',
+            'error'
+          )
+        }
+      })
+        
+    
+    } else if (result.isDenied) {
+      let typeOfEdit = e.target.value === "ban"
+        let id = e.target.value
+        
+        ? typeOfEdit = "ban"
+        : typeOfEdit = "unBann"
+        
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        swalWithBootstrapButtons.fire({
+          title: 'Are you sure to bann this user?',
+          text: "You cant revert this option!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, benned it!',
+          cancelButtonText: 'cancel!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed /* BANN */) {
+            
+            swalWithBootstrapButtons.fire(
+              'User Banned!',
+              'The User has been banned you can unbann later.',
+              'success'
+            )
+           /*  dispatch(bann_unBann({   // DISPACHAR LA ACIÓN PARA BANEAR O DESBANEAR
+              typeOfEdit,
+              id,
+            })) */
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'The user still on',
+              'error'
+            )
+          }
+        })
+    
+      ;  
+    }
+  })
+ }
 
   //////////////////////////////////////////////////////////////////// VALIDACIONES ////////////////////////////////////////////////////////////////////
   const validate = (input) => {
     let error = {}
-    console.log(input)
+    
     if (!input.name) {
         error.name = "Name is required"
     }
@@ -46,7 +149,7 @@ export default function CreateGame() {
         error.name = "text length is not allowed"
     }
 
-    if (!input.img) {
+    if (!input.di) {
         error.img = "Image is required"
     }
 
@@ -128,11 +231,13 @@ export default function CreateGame() {
     
     function onInputChange3(e) {
         e.preventDefault()
+        console.log(e.target)
         if (!plataformsFrom.includes(e.target.value)) {
           setPlataformsFrom([
             ...plataformsFrom,
             e.target.value
           ])
+          
         }
     }
       
@@ -150,11 +255,13 @@ export default function CreateGame() {
 ////////////////////////////////////////////////////////////////// FORMULARIO ////////////////////////////////////////////////////////////////////////////////////////
 
   return (
+
    
     <div className={style.container}>
         <Link to='/home'><button>Go Back</button></Link>
                 <h1> Create your VideoGame</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <button onClick={(e) => bann_unBann(e)}>DALE CLICK</button>
             
           <div className={style.label}>
               <label htmlFor=''>Name </label>
