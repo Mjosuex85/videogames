@@ -54,28 +54,27 @@ export default function Nav() {
         </div>
 
         <Link to={"/create"}> <button className={style.create}> Create Video Game </button> </Link>
-        
-      
-      <div className={style.filters}>
-        <button onClick={(e) => reset(e)}> Reset Filters </button>
-        <select className={style.filterInside} onChange={(e) => orderABC(e)}>
+         
+      <div>
+        <button  className={style.filters} onClick={(e) => reset(e)}> Reset Filters </button>
+        <select className={style.filters} onChange={(e) => orderABC(e)}>
           <option enable> Order by...</option>
           <option value="asc">A - Z </option>
           <option value="desc">Z - A </option>
         </select>
 
-        <select className={style.filterInside} onChange={(e) => rating(e)}>
+        <select   className={style.filters}  onChange={(e) => rating(e)}>
           <option enable>Order by Rating...</option>
           <option value='highest'> Highest to lowest</option>
           <option value='lowest'> Lowest to highest</option>
         </select>
 
-        <select className={style.filterInside} onChange={(e) => dataBase(e)}>
+        <select className={style.filters}  onChange={(e) => dataBase(e)}>
           <option value="all">All</option>
           <option value="dataBase">Created by you</option>
         </select>
 
-        <select className={style.filterInside}  onChange={(e) => genres(e)}>
+        <select  className={style.filters}  onChange={(e) => genres(e)}>
           <option multiple={true} enable>Order By Genres..</option>
           {allGenres.map((g) => {
             return <option value={g.name}>{g.name}</option>
@@ -83,10 +82,10 @@ export default function Nav() {
         </select>
 
       </div>
-
-        <div className={style.searchBar}>
+        <div className={style.searchBar} >
             <SearchBar/>
         </div>
+
     </div>
   )
 }

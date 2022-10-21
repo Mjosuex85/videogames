@@ -8,34 +8,34 @@ export default function GameCard({name, img, genres, id, rating}) {
   
   return (
     <>
+    <Link className={style.lik} to={`/details/${id}`}>  
     <div className={style.container}>
         <h4 className={style.title}> {name}</h4>
-        <Link to={`/details/${id}`}> 
+        
           <img className={style.img} src={img} 
               alt="Not Found" 
-              width="290" 
+              width="320" 
               height="190"/> 
-        </Link>
-
 
       <div className={style.info}>
         <div>
               {genres?.map(genre => {
                return (genre.name 
-                  ? <li>{genre.name}</li>
-                   : <li>{genre}</li>)
+                  ? <p>{genre.name}</p>
+                   : <p>{genre}</p>)
               }
              )}
         </div>
-        
         <div className={style.rating}>
-              <h4 >{rating}</h4>
+              <h2 >{rating}</h2>
         </div>
+        
 
       </div>
 
       
     </div>
+    </Link>
 </>
 
 )

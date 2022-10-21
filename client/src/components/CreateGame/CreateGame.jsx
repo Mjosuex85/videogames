@@ -28,111 +28,6 @@ export default function CreateGame() {
   const [ img , setImg ] = useState({img: "https://admin.esment.org/uploads/flat_pages/no.gif"})
 
 
- function bann_unBann(e) {
-  e.preventDefault()
-  Swal.fire({
-    title: 'What do you want to do with this user?',
-    showDenyButton: true,
-    showCancelButton: true, 
-    denyButtonText: `Bann or Unbann user`,
-    confirmButtonText: 'Make a user Admin',
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed /* make admin */) {
-  
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-      
-      swalWithBootstrapButtons.fire({
-        title: 'Are you sure to make admin this user?',
-        text: "You can revert this option later!",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, make it admin!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed /* BANN */) {
-          
-          swalWithBootstrapButtons.fire(
-            'The user is now a admin',
-            'the user now has this roles: - dkkkdd - jdkddjfk!.',
-            'success'
-          )
-         /*  dispatch(bann_unBann({   // DISPACHAR LA ACIÓN PARA BANEAR O DESBANEAR
-            typeOfEdit,
-            id,
-          })) */
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'The user is not an admin',
-            'error'
-          )
-        }
-      })
-        
-    
-    } else if (result.isDenied) {
-      let typeOfEdit = e.target.value === "ban"
-        let id = e.target.value
-        
-        ? typeOfEdit = "ban"
-        : typeOfEdit = "unBann"
-        
-        const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-          },
-          buttonsStyling: false
-        })
-        
-        swalWithBootstrapButtons.fire({
-          title: 'Are you sure to bann this user?',
-          text: "You cant revert this option!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, benned it!',
-          cancelButtonText: 'cancel!',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed /* BANN */) {
-            
-            swalWithBootstrapButtons.fire(
-              'User Banned!',
-              'The User has been banned you can unbann later.',
-              'success'
-            )
-           /*  dispatch(bann_unBann({   // DISPACHAR LA ACIÓN PARA BANEAR O DESBANEAR
-              typeOfEdit,
-              id,
-            })) */
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-          ) {
-            swalWithBootstrapButtons.fire(
-              'Cancelled',
-              'The user still on',
-              'error'
-            )
-          }
-        })
-    
-      ;  
-    }
-  })
- }
-
   //////////////////////////////////////////////////////////////////// VALIDACIONES ////////////////////////////////////////////////////////////////////
   const validate = (input) => {
     let error = {}
@@ -261,7 +156,6 @@ export default function CreateGame() {
         <Link to='/home'><button>Go Back</button></Link>
                 <h1> Create your VideoGame</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <button onClick={(e) => bann_unBann(e)}>DALE CLICK</button>
             
           <div className={style.label}>
               <label htmlFor=''>Name </label>
@@ -272,6 +166,8 @@ export default function CreateGame() {
                   value={game.name} /> 
                 {error.name ? <p>{error.name} ❌</p> : ""} <br></br>
           </div>    
+          <br />
+  
             
           <div>
               <label htmlFor='Released '>Released </label>
@@ -280,6 +176,8 @@ export default function CreateGame() {
                   type="date" 
                   value={game.released} /> <br></br>
           </div>
+          <br />
+       
             
           <div>
                 <label htmlFor='Plataforms'>Plataforms </label>
@@ -290,6 +188,8 @@ export default function CreateGame() {
                     </select>  <br></br> 
                    {error.plataforms ?  <p>{error.plataforms} ❌</p> : ""}
           </div> 
+          <br />
+       
 
           <div >
               {plataformsFrom.slice(0, 3)?.map((g, i) => {
@@ -300,6 +200,8 @@ export default function CreateGame() {
                        </div>
               })}
           </div>
+          <br />
+       
 
 
           <div>    
@@ -311,6 +213,8 @@ export default function CreateGame() {
                
                 </select> <br></br>
           </div>
+          <br />
+         
                <div>
                     {genreForm.slice(0, 5).map((g, i) => {
                       return  <div key={i} className={style.xbtn}>
@@ -321,6 +225,8 @@ export default function CreateGame() {
                     })}
                 </div>
           <div>
+          <br />
+        
                 <label htmlFor='Rating'>Rating </label>
                     <select onChange={(e) => handleOnChange(e)} name="rating" value={game.rating}> 
                           {ratings?.map((r, i) => {
@@ -335,6 +241,8 @@ export default function CreateGame() {
                     <p>{error.rating ? error.rating : ""}</p> <br></br>
                   </div>
           </div>
+          <br />
+          
 
           <div>
                <label htmlFor='Image '>Image </label>
@@ -348,14 +256,14 @@ export default function CreateGame() {
                 {error.img ? <p>{error.img} ❌</p> : ""} <br></br>
           </div>
 
-          <div>
+          {/* <div>
              <label htmlFor='ScreenShots'>ScreenShots</label>
                 <input 
                   onChange={(e) => handleOnChange(e)} 
                   name='screenshots' 
                   type="text" 
                   value={game.screenshots} /> <br></br>
-          </div>
+          </div> */}
 
           <div>  
              <label htmlFor='Description'>Description</label>

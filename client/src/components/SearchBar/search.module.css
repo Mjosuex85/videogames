@@ -1,17 +1,15 @@
-.search {
+/* .search {
     justify-content: center;
-}
+} */
 
 .search__input {
-  margin-left: 50px;
   border-radius: 5px;
   box-shadow: none;
-  width: 40%;
+  width: 60%;
   color: rgb(0, 0, 0);
 }
 
 .btn {
-    margin-bottom: 40px;
     margin-left: 10px;
     background-color: transparent;
     color: rgb(0, 0, 0);
@@ -24,7 +22,3 @@
     cursor: pointer;
 }
 
-.space {
-    display: flex;
-    flex-wrap: wrap;
-}

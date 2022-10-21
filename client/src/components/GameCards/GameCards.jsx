@@ -48,7 +48,7 @@ export default function GameCards() {
                 />
             })}
 
-          <div> 
+          {/* <div> 
                 <button 
                       disabled={ start === 0 ? true : false } 
                       onClick={goToPreviousPage}> Prev 
@@ -58,7 +58,7 @@ export default function GameCards() {
                       disabled={ finish > games.length || games.length < 16 ? true : false} 
                       onClick={goToNextPage}> Next
                 </button>
-          </div>
+          </div> */}
         </div> 
         </>
   )}
